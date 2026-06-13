@@ -1,0 +1,6 @@
+helm-diff: copyright-without-copyright-notice
+helm-diff: initial-upload-closes-no-bugs
+helm-diff: no-manual-page
+helm-diff: shared-library-lacks-prerequisites
+helm-diff: statically-linked-binary
+helm-diff: zero-byte-file-in-doc-directory
