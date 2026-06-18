@@ -1,0 +1,26 @@
+#!/usr/bin/make -f
+
+SHELL := /bin/bash
+
+override_dh_auto_build:
+	mkdir -p bin
+	set -ex && \
+		export CGO_ENABLED=0 && \
+		go build \
+			-mod vendor -buildmode pie -v \
+			-ldflags "-s -w -extldflags '-static -lm' \
+				-X github.com/databus23/helm-diff/v3/cmd.Version=3.15.10 \
+			" \
+			-o ./bin/diff .
+
+override_dh_auto_install:
+	install -Dpm755 -d debian/tmp/usr/share/helm/plugins/helm-diff/bin
+	install -Dpm755 -t debian/tmp/usr/share/helm/plugins/helm-diff/bin bin/diff
+	install -Dpm644 -t debian/tmp/usr/share/helm/plugins/helm-diff plugin.yaml
+
+override_dh_auto_test:
+
+override_dh_auto_clean:
+
+%:
+	dh $@
